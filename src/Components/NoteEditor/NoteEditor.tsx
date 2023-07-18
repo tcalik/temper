@@ -1,25 +1,22 @@
-import React from "react";
-import { editorActions } from "../../store/editorStore";
-import { useDispatch } from "react-redux";
-import { notesActions } from "../../store/notesStore";
-
-const NoteEditor = () => {
-  const dispatch = useDispatch();
-  const toggleEditorHandler = () => {
-    dispatch(editorActions.toggleEditor());
+const NoteEditor = (props: any) => {
+  const closeEditor = () => {
+    props.closeEditor();
   };
-  const addNewNote = () => {
-    dispatch(notesActions.addNote("test"));
+  const saveDraft = () => {
+    props.saveDraft();
   };
-
-  const saveTemplate = () => {
-    toggleEditorHandler();
-    addNewNote();
+  const changeDraft = (event: any) => {
+    props.changeDraft(event?.target.value);
   };
   return (
     <div>
-      <textarea></textarea>
-      <button onClick={saveTemplate}>Save</button>
+      <textarea
+        defaultValue={props.currContent}
+        id="draftNote"
+        onChange={changeDraft}
+      ></textarea>
+      <button onClick={saveDraft}>Save</button>
+      <button onClick={closeEditor}>Close</button>
     </div>
   );
 };
