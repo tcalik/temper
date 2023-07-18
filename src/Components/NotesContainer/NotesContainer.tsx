@@ -3,16 +3,19 @@ import NoteEditor from "../NoteEditor/NoteEditor";
 import { editorActions } from "../../store/editorStore";
 import { useDispatch, useSelector } from "react-redux";
 import { notesActions } from "../../store/notesStore";
+import Note from "../Note/Note";
 
 const NotesContainer = () => {
   const [draftContent, setDraftContent] = useState("");
+  const [i, setI] = useState(0);
 
+  const noteEditorOpen = useSelector((state: any) => state.editor.showEditor);
+  const savedNotes = useSelector((state: any) => state.notes.currentNotes);
   const dispatch = useDispatch();
+
   const toggleEditorHandler = () => {
     dispatch(editorActions.toggleEditor());
   };
-
-  //dispatch redux-toolkit action to save note
   const addNewNote = () => {
     dispatch(notesActions.addNote(draftContent));
   };
@@ -33,9 +36,6 @@ const NotesContainer = () => {
     toggleEditorHandler();
   };
 
-  const [i, setI] = useState(0);
-  const noteEditorOpen = useSelector((state: any) => state.editor.showEditor);
-
   const draftNewNote = () => {
     setI(i + 1);
     toggleEditorHandler();
@@ -53,6 +53,9 @@ const NotesContainer = () => {
       )}
       <p>{i}</p>
       {!noteEditorOpen && <button onClick={draftNewNote}>+</button>}
+      {savedNotes.map((value: string, idx: number) => {
+        return <Note key={idx} content={value} ></Note>;
+      })}
     </div>
   );
 };

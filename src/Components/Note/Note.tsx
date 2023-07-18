@@ -1,9 +1,13 @@
 import React, { PropsWithChildren } from "react";
 
-const Note = () => {
+interface NoteProps {
+  content: string;
+}
+
+const Note = (props: NoteProps) => {
   return (
-    <div >
-      <p></p>
+    <div>
+      <p>{props.content}</p>
     </div>
   );
 };

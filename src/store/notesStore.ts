@@ -10,7 +10,7 @@ const notesSlice = createSlice({
   initialState: notesInitialState,
   reducers: {
     addNote(state, action) {
-      state.currentNotes.push(action.payload);
+      state.currentNotes = [...state.currentNotes, action.payload];
     },
   },
 });
