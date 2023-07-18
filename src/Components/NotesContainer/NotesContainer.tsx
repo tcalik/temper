@@ -1,6 +1,6 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { useState } from "react";
 import NoteEditor from "../NoteEditor/NoteEditor";
-import { editorActions } from "../../store";
+import { editorActions } from "../../store/editorStore";
 import { useDispatch, useSelector } from "react-redux";
 
 const NotesContainer = () => {
@@ -9,7 +9,7 @@ const NotesContainer = () => {
     dispatch(editorActions.toggleEditor());
   };
   const [i, setI] = useState(0);
-  const noteEditorOpen = useSelector((state:any) => state.showEditor)
+  const noteEditorOpen = useSelector((state: any) => state.editor.showEditor);
 
   const draftNewNote = () => {
     setI(i + 1);

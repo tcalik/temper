@@ -1,20 +1,10 @@
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 
-const initialState = { showEditor: false };
-
-const editorSlice = createSlice({
-  name: "editor",
-  initialState: initialState,
-  reducers: {
-    toggleEditor(state) {
-      state.showEditor = !state.showEditor;
-    },
-  },
-});
+import notesReducer from "./notesStore";
+import editorReducer from "./editorStore";
 
 const store = configureStore({
-  reducer: editorSlice.reducer
+  reducer:{ editor: editorReducer, notes: notesReducer }
 });
 
-export const editorActions = editorSlice.actions;
 export default store;
