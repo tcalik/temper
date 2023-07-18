@@ -17,7 +17,9 @@ const NotesContainer = () => {
     dispatch(editorActions.toggleEditor());
   };
   const addNewNote = () => {
-    dispatch(notesActions.addNote(draftContent));
+    dispatch(
+      notesActions.addNote({ id: Math.random(), draftContent: draftContent })
+    );
   };
 
   // save draft to current component state
@@ -41,6 +43,11 @@ const NotesContainer = () => {
     toggleEditorHandler();
   };
 
+  interface noteInterface {
+    id: number;
+    content: string;
+  }
+
   return (
     <div>
       {noteEditorOpen && (
@@ -53,8 +60,8 @@ const NotesContainer = () => {
       )}
       <p>{i}</p>
       {!noteEditorOpen && <button onClick={draftNewNote}>+</button>}
-      {savedNotes.map((value: string, idx: number) => {
-        return <Note key={idx} content={value} ></Note>;
+      {savedNotes.map((value: noteInterface) => {
+        return <Note key={value.id} content={value.content}></Note>;
       })}
     </div>
   );

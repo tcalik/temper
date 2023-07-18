@@ -1,10 +1,8 @@
-import React, { PropsWithChildren } from "react";
+import React from "react";
 
-interface NoteProps {
-  content: string;
-}
 
-const Note = (props: NoteProps) => {
+
+const Note = (props: any) => {
   return (
     <div>
       <p>{props.content}</p>
