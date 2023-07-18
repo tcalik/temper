@@ -1,19 +1,26 @@
 import React, { PropsWithChildren, useState } from "react";
 import NoteEditor from "../NoteEditor/NoteEditor";
+import { editorActions } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
 
 const NotesContainer = () => {
+  const dispatch = useDispatch();
+  const toggleEditorHandler = () => {
+    dispatch(editorActions.toggleEditor());
+  };
   const [i, setI] = useState(0);
-  const [noteEditorOpen, setNoteEditorOpen] = useState(false);
+  const noteEditorOpen = useSelector((state:any) => state.showEditor)
+
   const draftNewNote = () => {
     setI(i + 1);
-    setNoteEditorOpen(true);
+    toggleEditorHandler();
   };
 
   return (
     <div>
       {noteEditorOpen && <NoteEditor></NoteEditor>}
       <p>{i}</p>
-      <button onClick={draftNewNote}>+</button>
+      {!noteEditorOpen && <button onClick={draftNewNote}>+</button>}
     </div>
   );
 };
