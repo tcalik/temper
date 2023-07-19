@@ -13,8 +13,6 @@ const storedNotes =
     ? JSON.parse(localStorage.getItem("notes")!)
     : [];
 
-console.log(storedNotes);
-
 const notesInitialState: currentNotesArray = { currentNotes: storedNotes };
 
 const notesSlice = createSlice({
@@ -26,6 +24,18 @@ const notesSlice = createSlice({
         ...state.currentNotes,
         { id: action.payload.id, content: action.payload.draftContent },
       ];
+      localStorage.setItem("notes", JSON.stringify(state.currentNotes));
+    },
+    editNote(state, action) {
+      const editedNoteIndex = state.currentNotes.findIndex(
+        (obj) => obj.id === action.payload.id
+      );
+
+      const editedNoteObj = {
+        id: action.payload.id,
+        content: action.payload.text,
+      };
+      state.currentNotes[editedNoteIndex] = editedNoteObj;
       localStorage.setItem("notes", JSON.stringify(state.currentNotes));
     },
   },

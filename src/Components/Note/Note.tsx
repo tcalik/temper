@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { notesActions } from "../../store/notesStore";
 import ActiveNote from "../ActiveNote/ActiveNote";
 import PassiveNote from "../PassiveNote/PassiveNote";
 import "./Note.css";
 
 const Note = (props: any) => {
+  const dispatch = useDispatch();
   const savedNotes = useSelector((state: any) => state.notes.currentNotes);
+
+  const editNote = (text: string) => {
+    dispatch(notesActions.editNote({ id: props.id, text: text }));
+  };
 
   const [isActive, setIsActive] = useState(false);
 
@@ -17,23 +23,27 @@ const Note = (props: any) => {
     navigator.clipboard.writeText(currentContent);
   };
 
-  const saveNote = () => {
-    console.log(props.id);
+  const saveNote = (text: string) => {
+    setIsActive(false);
+    editNote(text);
   };
 
-  const cancelEdit = () =>{
+  const cancelEdit = () => {
     setIsActive(false);
-  }
+  };
 
   const currentContent = savedNotes.find((note: any) => {
     return note.id === props.id;
   }).content;
 
-  console.log(currentContent);
   return (
     <div className="NoteArea">
       {isActive ? (
-        <ActiveNote content={currentContent} saveNote={saveNote} cancelEdit={cancelEdit}>
+        <ActiveNote
+          content={currentContent}
+          saveNote={saveNote}
+          cancelEdit={cancelEdit}
+        >
           {" "}
         </ActiveNote>
       ) : (
