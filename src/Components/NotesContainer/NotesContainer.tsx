@@ -61,7 +61,7 @@ const NotesContainer = () => {
       <p>{i}</p>
       {!noteEditorOpen && <button onClick={draftNewNote}>+</button>}
       {savedNotes.map((value: noteInterface) => {
-        return <Note key={value.id} content={value.content}></Note>;
+        return <Note key={value.id} id={value.id}></Note>;
       })}
     </div>
   );
