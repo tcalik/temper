@@ -1,60 +1,47 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface noteInterface {
-  id: number;
-  content: string;
-}
-interface currentNotesArray {
-  currentNotes: noteInterface[];
-  editedNotes: noteInterface[];
-  varsInNotes: string[];
-  varsInContent: string[];
-}
+import VariablesInterface from "../Interfaces/VariablesInterface";
+import NotesStateInterface from "../Interfaces/NotesStateInterface";
+import NoteInterface from "../Interfaces/NoteInterface";
 
 const storedNotes =
   localStorage.getItem("notes") != null
     ? JSON.parse(localStorage.getItem("notes")!)
     : [];
 
-/*const extractVars = (contentToProc: string) => {
-  const rx = /\$\{(.*?)\}/g;
-  let foundVar;
-  let varsInContent = [];
-  while ((foundVar = rx.exec(contentToProc))) {
-    varsInContent.push(foundVar[0]);
-  }
-  return varsInContent;
-};
-*/
-
-const getAllVars = (notesArr: Array<noteInterface>) => {
-  let varsArr: Array<Array<string>> = [];
-  let varsCtntArr: Array<Array<string>> = [];
+const getAllVars = (notesArr: Array<NoteInterface>) => {
+  let varsToSub: Array<string> = [];
+  let varsInContent: Array<string> = [];
+  let varindex = 0;
+  const emptyString = "";
+  let varsAvail: Array<VariablesInterface> = [];
   notesArr.forEach((note) => {
     const rx = /\$\{(.*?)\}/g;
     let foundVar;
-    let varsToSub = [];
-    let varsInContent = [];
+
     while ((foundVar = rx.exec(note.content))) {
+      varsAvail.push({
+        id: varindex,
+        varRaw: foundVar[0],
+        varName: foundVar[1],
+        substitution: emptyString,
+      });
       varsToSub.push(foundVar[0]);
       varsInContent.push(foundVar[1]);
+      varindex++;
     }
-    varsArr.push(varsToSub);
-    varsCtntArr.push(varsInContent);
   });
-  return {varsToSub: varsArr.flat(), varsInContent: varsCtntArr.flat()};
+  return varsAvail;
 };
 
-const varsInNotes = getAllVars(storedNotes).varsToSub;
-const varsInContent = getAllVars(storedNotes).varsInContent;
+const variablesAvail = getAllVars(storedNotes);
 
-const substitutedNotes = (notesToProcess: Array<noteInterface>) => {
-  let correctedNotes: Array<noteInterface> = [];
+const substitutedNotes = (notesToProcess: Array<NoteInterface>) => {
+  let correctedNotes: Array<NoteInterface> = [];
   notesToProcess.forEach((noteX) => {
     let finalNote = noteX.content;
-    varsInNotes.forEach((varNote) => {
-      if (finalNote.includes(varNote)) {
-        finalNote = finalNote.replaceAll(varNote, "teststring");
+    variablesAvail.forEach((varNote) => {
+      if (finalNote.includes(varNote.varRaw)) {
+        finalNote = finalNote.replaceAll(varNote.varRaw, "teststring");
       }
     });
     correctedNotes.push({ id: noteX.id, content: finalNote });
@@ -64,11 +51,10 @@ const substitutedNotes = (notesToProcess: Array<noteInterface>) => {
 
 const editedNotes = substitutedNotes(storedNotes);
 
-const notesInitialState: currentNotesArray = {
+const notesInitialState: NotesStateInterface = {
   currentNotes: storedNotes,
   editedNotes: editedNotes,
-  varsInNotes: varsInNotes,
-  varsInContent: varsInContent
+  variablesAvailable: variablesAvail,
 };
 
 const notesSlice = createSlice({

@@ -4,13 +4,18 @@ import { editorActions } from "../../store/editorStore";
 import { useDispatch, useSelector } from "react-redux";
 import { notesActions } from "../../store/notesStore";
 import Note from "../Note/Note";
+import SharedStateInterface from "../../Interfaces/SharedStateInterface";
 
 const NotesContainer = () => {
   const [draftContent, setDraftContent] = useState("");
   const [i, setI] = useState(0);
 
-  const noteEditorOpen = useSelector((state: any) => state.editor.showEditor);
-  const savedNotes = useSelector((state: any) => state.notes.currentNotes);
+  const noteEditorOpen = useSelector(
+    (state: SharedStateInterface) => state.editor.showEditor
+  );
+  const savedNotes = useSelector(
+    (state: SharedStateInterface) => state.notes.currentNotes
+  );
   const dispatch = useDispatch();
 
   const toggleEditorHandler = () => {
@@ -23,7 +28,7 @@ const NotesContainer = () => {
   };
 
   // save draft to current component state
-  const draftChangeHandler = (value: any) => {
+  const draftChangeHandler = (value: string) => {
     setDraftContent(value);
   };
 

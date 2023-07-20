@@ -1,8 +1,12 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
-const PassiveNote = (props: any) => {
+interface PassiveNotePropsInterface{
+  copyContent: MouseEventHandler;
+  activateEdit: MouseEventHandler;
+  content: string;
+}
 
-
+const PassiveNote = (props: PassiveNotePropsInterface) => {
   return (
     <div>
       <div>{props.content}</div>

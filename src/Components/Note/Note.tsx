@@ -4,8 +4,13 @@ import { notesActions } from "../../store/notesStore";
 import ActiveNote from "../ActiveNote/ActiveNote";
 import PassiveNote from "../PassiveNote/PassiveNote";
 import "./Note.css";
+import NoteInterface from "../../Interfaces/NoteInterface";
 
-const Note = (props: any) => {
+interface NotePropsInterface {
+  id: number;
+}
+
+const Note = (props: NotePropsInterface) => {
   const dispatch = useDispatch();
   const savedNotes = useSelector((state: any) => state.notes.currentNotes);
   const substitutedNotes = useSelector((state: any) => state.notes.editedNotes);
@@ -33,11 +38,11 @@ const Note = (props: any) => {
     setIsActive(false);
   };
 
-  const currentContent = savedNotes.find((note: any) => {
+  const currentContent = savedNotes.find((note: NoteInterface) => {
     return note.id === props.id;
   }).content;
 
-  const substitutedContent = substitutedNotes.find((note: any) => {
+  const substitutedContent = substitutedNotes.find((note: NoteInterface) => {
     return note.id === props.id;
   }).content;
 
@@ -48,15 +53,13 @@ const Note = (props: any) => {
           content={currentContent}
           saveNote={saveNote}
           cancelEdit={cancelEdit}
-        >
-          {" "}
-        </ActiveNote>
+        />
       ) : (
         <PassiveNote
           copyContent={copyContent}
           activateEdit={activateEdit}
           content={substitutedContent}
-        ></PassiveNote>
+        />
       )}
     </div>
   );

@@ -1,11 +1,18 @@
-const NoteEditor = (props: any) => {
+interface NoteEditorPropsInterface {
+  changeDraft: Function;
+  saveDraft: Function;
+  currContent: string;
+  closeEditor: Function;
+}
+
+const NoteEditor = (props: NoteEditorPropsInterface) => {
   const closeEditor = () => {
     props.closeEditor();
   };
   const saveDraft = () => {
     props.saveDraft();
   };
-  const changeDraft = (event: any) => {
+  const changeDraft = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     props.changeDraft(event?.target.value);
   };
   return (

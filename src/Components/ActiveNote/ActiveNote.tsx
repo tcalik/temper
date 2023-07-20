@@ -1,9 +1,13 @@
-import React, { useState } from "react";
-
-const ActiveNote = (props: any) => {
+import React, { MouseEventHandler, useState } from "react";
+interface ActiveNotePropsInterface {
+  saveNote: Function;
+  cancelEdit: MouseEventHandler;
+  content: string;
+}
+const ActiveNote = (props: ActiveNotePropsInterface) => {
   const [draftNoteContent, setDraftNoteContent] = useState(props.content);
 
-  const draftCurrentNote = (event: any) => {
+  const draftCurrentNote = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDraftNoteContent(event.target.value);
   };
 
