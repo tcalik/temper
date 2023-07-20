@@ -38,18 +38,14 @@ const variablesAvail = getAllVars(storedNotes);
 
 const substitutedNotes = (
   notesToProcess: Array<NoteInterface>,
-  substitute: string,
-  subId: number
+  currentVariables: Array<VariablesInterface>
 ) => {
   let correctedNotes: Array<NoteInterface> = [];
   notesToProcess.forEach((noteX) => {
     let finalNote = noteX.content;
-    variablesAvail.forEach((varNote) => {
-      if (
-        finalNote.includes(varNote.varRaw) &&
-        (varNote.id === subId || subId === -1)
-      ) {
-        finalNote = finalNote.replaceAll(varNote.varRaw, substitute);
+    currentVariables.forEach((varNote) => {
+      if (finalNote.includes(varNote.varRaw) && varNote.substitution !== "") {
+        finalNote = finalNote.replaceAll(varNote.varRaw, varNote.substitution);
       }
     });
     correctedNotes.push({ id: noteX.id, content: finalNote });
@@ -57,7 +53,7 @@ const substitutedNotes = (
   return correctedNotes;
 };
 
-const editedNotes = substitutedNotes(storedNotes, "", -1);
+const editedNotes = substitutedNotes(storedNotes, variablesAvail);
 
 const notesInitialState: NotesStateInterface = {
   currentNotes: storedNotes,
@@ -93,8 +89,7 @@ const notesSlice = createSlice({
         action.payload.substituteText;
       state.editedNotes = substitutedNotes(
         state.currentNotes,
-        state.variablesAvailable[action.payload.id].substitution,
-        action.payload.id
+        state.variablesAvailable
       );
     },
   },

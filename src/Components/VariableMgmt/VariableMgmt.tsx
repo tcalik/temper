@@ -11,8 +11,12 @@ const VariableMgmt = (props: VariableMgmtInterface) => {
   const dispatch = useDispatch();
 
   const handleSubstitution = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value)
-    dispatch(notesActions.substituteVariable({id: props.varId, substituteText: event.target.value}))
+    dispatch(
+      notesActions.substituteVariable({
+        id: props.varId,
+        substituteText: event.target.value,
+      })
+    );
   };
 
   return (
