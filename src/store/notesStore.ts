@@ -10,7 +10,7 @@ const storedNotes =
 
 const getAllVars = (notesArr: Array<NoteInterface>) => {
   let varsToSub: Array<string> = [];
-  let varsInContent: Array<string> = [];
+
   let varindex = 0;
   const emptyString = "";
   let varsAvail: Array<VariablesInterface> = [];
@@ -19,14 +19,15 @@ const getAllVars = (notesArr: Array<NoteInterface>) => {
     let foundVar;
 
     while ((foundVar = rx.exec(note.content))) {
-      varsAvail.push({
-        id: varindex,
-        varRaw: foundVar[0],
-        varName: foundVar[1],
-        substitution: emptyString,
-      });
-      varsToSub.push(foundVar[0]);
-      varsInContent.push(foundVar[1]);
+      if (!varsToSub.includes(foundVar[0])) {
+        varsToSub.push(foundVar[0]);
+        varsAvail.push({
+          id: varindex,
+          varRaw: foundVar[0],
+          varName: foundVar[1],
+          substitution: emptyString,
+        });
+      }
       varindex++;
     }
   });
@@ -35,13 +36,20 @@ const getAllVars = (notesArr: Array<NoteInterface>) => {
 
 const variablesAvail = getAllVars(storedNotes);
 
-const substitutedNotes = (notesToProcess: Array<NoteInterface>) => {
+const substitutedNotes = (
+  notesToProcess: Array<NoteInterface>,
+  substitute: string,
+  subId: number
+) => {
   let correctedNotes: Array<NoteInterface> = [];
   notesToProcess.forEach((noteX) => {
     let finalNote = noteX.content;
     variablesAvail.forEach((varNote) => {
-      if (finalNote.includes(varNote.varRaw)) {
-        finalNote = finalNote.replaceAll(varNote.varRaw, "teststring");
+      if (
+        finalNote.includes(varNote.varRaw) &&
+        (varNote.id === subId || subId === -1)
+      ) {
+        finalNote = finalNote.replaceAll(varNote.varRaw, substitute);
       }
     });
     correctedNotes.push({ id: noteX.id, content: finalNote });
@@ -49,7 +57,7 @@ const substitutedNotes = (notesToProcess: Array<NoteInterface>) => {
   return correctedNotes;
 };
 
-const editedNotes = substitutedNotes(storedNotes);
+const editedNotes = substitutedNotes(storedNotes, "", -1);
 
 const notesInitialState: NotesStateInterface = {
   currentNotes: storedNotes,
@@ -79,6 +87,15 @@ const notesSlice = createSlice({
       };
       state.currentNotes[editedNoteIndex] = editedNoteObj;
       localStorage.setItem("notes", JSON.stringify(state.currentNotes));
+    },
+    substituteVariable(state, action) {
+      state.variablesAvailable[action.payload.id].substitution =
+        action.payload.substituteText;
+      state.editedNotes = substitutedNotes(
+        state.currentNotes,
+        state.variablesAvailable[action.payload.id].substitution,
+        action.payload.id
+      );
     },
   },
 });
