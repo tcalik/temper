@@ -8,6 +8,7 @@ import "./Note.css";
 const Note = (props: any) => {
   const dispatch = useDispatch();
   const savedNotes = useSelector((state: any) => state.notes.currentNotes);
+  const substitutedNotes = useSelector((state: any) => state.notes.editedNotes);
 
   const editNote = (text: string) => {
     dispatch(notesActions.editNote({ id: props.id, text: text }));
@@ -20,7 +21,7 @@ const Note = (props: any) => {
   };
 
   const copyContent = () => {
-    navigator.clipboard.writeText(currentContent);
+    navigator.clipboard.writeText(substitutedContent);
   };
 
   const saveNote = (text: string) => {
@@ -33,6 +34,10 @@ const Note = (props: any) => {
   };
 
   const currentContent = savedNotes.find((note: any) => {
+    return note.id === props.id;
+  }).content;
+
+  const substitutedContent = substitutedNotes.find((note: any) => {
     return note.id === props.id;
   }).content;
 
@@ -50,7 +55,7 @@ const Note = (props: any) => {
         <PassiveNote
           copyContent={copyContent}
           activateEdit={activateEdit}
-          content={currentContent}
+          content={substitutedContent}
         ></PassiveNote>
       )}
     </div>
