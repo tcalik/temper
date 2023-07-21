@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { notesActions } from "../../store/notesStore";
 import Note from "../Note/Note";
 import SharedStateInterface from "../../Interfaces/SharedStateInterface";
-import "./NotesContainer.css"
+import "./NotesContainer.css";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 const NotesContainer = () => {
   const dispatch = useDispatch();
@@ -56,20 +57,28 @@ const NotesContainer = () => {
 
   return (
     <div className="NotesContainer">
-      <div className="NoteEditorContainer">
-        {!noteEditorOpen && <button className="NewNoteButton" onClick={draftNewNote}>+</button>}
-        {noteEditorOpen && (
-          <NoteEditor
-            changeDraft={draftChangeHandler}
-            saveDraft={saveTemplate}
-            currContent={draftContent}
-            closeEditor={closeDraft}
-          ></NoteEditor>
-        )}
-      </div>
-      {savedNotes.map((value: noteInterface) => {
-        return <Note key={value.id} id={value.id}></Note>;
-      })}
+      <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 400: 2, 600: 3, 800: 4, 1000: 5}}>
+        <Masonry>
+          <div className="NoteEditorContainer">
+            {!noteEditorOpen && (
+              <button className="NewNoteButton" onClick={draftNewNote}>
+                +
+              </button>
+            )}
+            {noteEditorOpen && (
+              <NoteEditor
+                changeDraft={draftChangeHandler}
+                saveDraft={saveTemplate}
+                currContent={draftContent}
+                closeEditor={closeDraft}
+              ></NoteEditor>
+            )}
+          </div>
+          {savedNotes.map((value: noteInterface) => {
+            return <Note key={value.id} id={value.id}></Note>;
+          })}
+        </Masonry>
+      </ResponsiveMasonry>
     </div>
   );
 };

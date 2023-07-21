@@ -1,13 +1,10 @@
 .NotesContainer {
   width: 80%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
 }
 
 .NoteEditorContainer {
   width: 200px;
-  height: 200px;
+  height: 300px;
   background-color: #00000020;
   padding: 12px;
   border-style: solid;
