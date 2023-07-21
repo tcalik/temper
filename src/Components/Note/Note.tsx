@@ -5,6 +5,7 @@ import ActiveNote from "../ActiveNote/ActiveNote";
 import PassiveNote from "../PassiveNote/PassiveNote";
 import "./Note.css";
 import NoteInterface from "../../Interfaces/NoteInterface";
+import SharedStateInterface from "../../Interfaces/SharedStateInterface";
 
 interface NotePropsInterface {
   id: number;
@@ -12,11 +13,14 @@ interface NotePropsInterface {
 
 const Note = (props: NotePropsInterface) => {
   const dispatch = useDispatch();
-  const savedNotes = useSelector((state: any) => state.notes.currentNotes);
-  const substitutedNotes = useSelector((state: any) => state.notes.editedNotes);
+  const savedNotes = useSelector((state: SharedStateInterface) => state.notes.currentNotes);
+  const substitutedNotes = useSelector((state: SharedStateInterface) => state.notes.editedNotes);
 
   const editNote = (text: string) => {
     dispatch(notesActions.editNote({ id: props.id, text: text }));
+  };
+  const deleteNoteAction = () => {
+    dispatch(notesActions.deleteNote({ id: props.id }));
   };
 
   const [isActive, setIsActive] = useState(false);
@@ -38,13 +42,25 @@ const Note = (props: NotePropsInterface) => {
     setIsActive(false);
   };
 
-  const currentContent = savedNotes.find((note: NoteInterface) => {
-    return note.id === props.id;
-  }).content;
+  const deleteNote = () => {
+    deleteNoteAction();
+  }
 
-  const substitutedContent = substitutedNotes.find((note: NoteInterface) => {
+  const currentNoteById = savedNotes.find((note: NoteInterface) => {
     return note.id === props.id;
-  }).content;
+  });
+  let currentContent: string;
+  currentNoteById
+    ? (currentContent = currentNoteById.content)
+    : (currentContent = "");
+
+  const substitutedNoteById = substitutedNotes.find((note: NoteInterface) => {
+    return note.id === props.id;
+  });
+  let substitutedContent: string;
+  substitutedNoteById
+    ? (substitutedContent = substitutedNoteById.content)
+    : (substitutedContent = "");
 
   return (
     <div className="NoteArea">
@@ -61,6 +77,7 @@ const Note = (props: NotePropsInterface) => {
           content={substitutedContent}
         />
       )}
+      <button onClick={deleteNote}>Delete</button>
     </div>
   );
 };

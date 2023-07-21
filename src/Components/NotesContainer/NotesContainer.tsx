@@ -8,7 +8,6 @@ import SharedStateInterface from "../../Interfaces/SharedStateInterface";
 
 const NotesContainer = () => {
   const [draftContent, setDraftContent] = useState("");
-  const [i, setI] = useState(0);
 
   const noteEditorOpen = useSelector(
     (state: SharedStateInterface) => state.editor.showEditor
@@ -44,7 +43,6 @@ const NotesContainer = () => {
   };
 
   const draftNewNote = () => {
-    setI(i + 1);
     toggleEditorHandler();
   };
 
@@ -63,7 +61,6 @@ const NotesContainer = () => {
           closeEditor={closeDraft}
         ></NoteEditor>
       )}
-      <p>{i}</p>
       {!noteEditorOpen && <button onClick={draftNewNote}>+</button>}
       {savedNotes.map((value: noteInterface) => {
         return <Note key={value.id} id={value.id}></Note>;
