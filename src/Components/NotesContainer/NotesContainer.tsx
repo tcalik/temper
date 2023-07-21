@@ -33,9 +33,11 @@ const NotesContainer = () => {
 
   // add note to redux-toolkit store, reset draft
   const saveTemplate = () => {
-    toggleEditorHandler();
-    setDraftContent("");
-    addNewNote();
+    if (draftContent !== "") {
+      toggleEditorHandler();
+      setDraftContent("");
+      addNewNote();
+    }
   };
 
   const closeDraft = () => {
