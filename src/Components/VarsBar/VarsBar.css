@@ -1,0 +1,8 @@
+.VariablesBar{
+  right: 0px;
+  background-color: #00000030;
+  width: 20%;
+ 
+  position: fixed;
+  height: 100%;
+}

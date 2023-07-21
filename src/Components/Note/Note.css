@@ -1,9 +1,12 @@
-.NoteArea{
+.NoteArea {
   width: 200px;
   height: 100%;
-  background-color: green;
+  background-color: #00000020;
   text-align: left;
   padding: 12px;
-  border-width: 4px;
-  border-color: red;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #00000050;
+  border-radius: 4px;
+  margin: 8px;
 }

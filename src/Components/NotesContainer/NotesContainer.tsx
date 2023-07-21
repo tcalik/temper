@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { notesActions } from "../../store/notesStore";
 import Note from "../Note/Note";
 import SharedStateInterface from "../../Interfaces/SharedStateInterface";
+import "./NotesContainer.css"
 
 const NotesContainer = () => {
+  const dispatch = useDispatch();
   const [draftContent, setDraftContent] = useState("");
 
   const noteEditorOpen = useSelector(
@@ -15,7 +17,6 @@ const NotesContainer = () => {
   const savedNotes = useSelector(
     (state: SharedStateInterface) => state.notes.currentNotes
   );
-  const dispatch = useDispatch();
 
   const toggleEditorHandler = () => {
     dispatch(editorActions.toggleEditor());
@@ -54,16 +55,18 @@ const NotesContainer = () => {
   }
 
   return (
-    <div>
-      {noteEditorOpen && (
-        <NoteEditor
-          changeDraft={draftChangeHandler}
-          saveDraft={saveTemplate}
-          currContent={draftContent}
-          closeEditor={closeDraft}
-        ></NoteEditor>
-      )}
-      {!noteEditorOpen && <button onClick={draftNewNote}>+</button>}
+    <div className="NotesContainer">
+      <div className="NoteEditorContainer">
+        {!noteEditorOpen && <button className="NewNoteButton" onClick={draftNewNote}>+</button>}
+        {noteEditorOpen && (
+          <NoteEditor
+            changeDraft={draftChangeHandler}
+            saveDraft={saveTemplate}
+            currContent={draftContent}
+            closeEditor={closeDraft}
+          ></NoteEditor>
+        )}
+      </div>
       {savedNotes.map((value: noteInterface) => {
         return <Note key={value.id} id={value.id}></Note>;
       })}
