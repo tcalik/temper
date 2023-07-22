@@ -20,7 +20,7 @@ const VariableMgmt = (props: VariableMgmtInterface) => {
   };
 
   return (
-    <div>
+    <div className="SingleVar">
       <label>{props.varName}</label>
       <input onChange={handleSubstitution} type="text" />
     </div>

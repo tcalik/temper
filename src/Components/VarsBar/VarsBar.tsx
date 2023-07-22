@@ -12,6 +12,7 @@ const VarsBar = () => {
 
   return (
     <div className="VariablesBar">
+      <div className="NameHeader"><h2>Temper</h2></div>
       {varsInNotes.map((va: VariablesInterface, id: number) => {
         return (
           <VariableMgmt key={id} varId={id} varName={va.varName}></VariableMgmt>

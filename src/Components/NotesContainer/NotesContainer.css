@@ -13,10 +13,17 @@
   border-radius: 4px;
   margin: 8px;
 }
+.NoteEditorContainer>div{
+  height: 100%;
+}
 .NoteEditorContainer textarea {
   width: 90%;
-  height: 150px;
+  height: 270px;
   resize: none;
+  color: white;
+  background-color: #18181b;
+  border-style: solid;
+  border-color: #00000020;
 }
 
 .NewNoteButton {

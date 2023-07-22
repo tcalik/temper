@@ -1,8 +1,8 @@
 .App {
   text-align: center;
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  background-color: darkslategray;
+  background-color: #1f1f23;
   display: block;
 }
 .MainHeader {

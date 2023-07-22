@@ -7,7 +7,6 @@ function App() {
 
   return (
     <div className="App">
-      <div className="MainHeader">Temper</div>
       <VarsBar></VarsBar>
       <NotesContainer></NotesContainer>
     </div>

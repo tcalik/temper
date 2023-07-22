@@ -1,8 +1,30 @@
 .VariablesBar{
-  right: 0px;
-  background-color: #00000030;
-  width: 20%;
- 
   position: fixed;
+  right: 0px;
+  background-color: #18181b;
+  width: 20%;
   height: 100%;
+  text-align: left;
 }
+.VariablesBar input{
+position: fixed;
+right: 0px;
+  
+}
+.VariablesBar>.SingleVar{
+padding: 5px;
+}
+
+.NameHeader{
+  padding: 0px;
+  text-align: center;
+}
+
+h2{
+  margin: 10px;
+}
+
+.VariablesBar label{
+  margin-left: 5px;
+}
+
