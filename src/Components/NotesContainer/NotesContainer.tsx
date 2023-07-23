@@ -57,7 +57,18 @@ const NotesContainer = () => {
 
   return (
     <div className="NotesContainer">
-      <ResponsiveMasonry columnsCountBreakPoints={{ 200: 1, 400: 2, 600: 3, 800: 4, 1000: 5}}>
+      <ResponsiveMasonry
+        columnsCountBreakPoints={{
+          300: 1,
+          600: 2,
+          900: 3,
+          1200: 4,
+          1500: 5,
+          1800: 6,
+          2100: 7,
+          2400: 8
+        }}
+      >
         <Masonry>
           <div className="NoteEditorContainer">
             {!noteEditorOpen && (

@@ -1,3 +1,5 @@
+import './NoteEditor.css'
+
 interface NoteEditorPropsInterface {
   changeDraft: Function;
   saveDraft: Function;
@@ -17,13 +19,13 @@ const NoteEditor = (props: NoteEditorPropsInterface) => {
   };
   return (
     <div>
+    <button className="SaveButton NoteButton" onClick={saveDraft}>Save</button>
+    <button className="CloseButton NoteButton" onClick={closeEditor}>Cancel</button>
       <textarea
         defaultValue={props.currContent}
         id="draftNote"
         onChange={changeDraft}
       ></textarea>
-      <button onClick={saveDraft}>Save</button>
-      <button onClick={closeEditor}>Close</button>
     </div>
   );
 };

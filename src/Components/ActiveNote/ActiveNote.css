@@ -1,0 +1,25 @@
+
+.DeleteButton {
+  background-color: #00000000;
+  margin-left: 5px;
+  color: #a31515;
+  border-style: none;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.DeleteButton:hover {
+  
+  cursor: pointer;
+  background-color: #ffffff10;
+}
+
+
+.SaveButton{
+  float: right;
+}
+
+.CancelButton{
+  float: left;
+}

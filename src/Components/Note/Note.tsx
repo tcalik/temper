@@ -13,14 +13,15 @@ interface NotePropsInterface {
 
 const Note = (props: NotePropsInterface) => {
   const dispatch = useDispatch();
-  const savedNotes = useSelector((state: SharedStateInterface) => state.notes.currentNotes);
-  const substitutedNotes = useSelector((state: SharedStateInterface) => state.notes.editedNotes);
+  const savedNotes = useSelector(
+    (state: SharedStateInterface) => state.notes.currentNotes
+  );
+  const substitutedNotes = useSelector(
+    (state: SharedStateInterface) => state.notes.editedNotes
+  );
 
   const editNote = (text: string) => {
     dispatch(notesActions.editNote({ id: props.id, text: text }));
-  };
-  const deleteNoteAction = () => {
-    dispatch(notesActions.deleteNote({ id: props.id }));
   };
 
   const [isActive, setIsActive] = useState(false);
@@ -41,10 +42,6 @@ const Note = (props: NotePropsInterface) => {
   const cancelEdit = () => {
     setIsActive(false);
   };
-
-  const deleteNote = () => {
-    deleteNoteAction();
-  }
 
   const currentNoteById = savedNotes.find((note: NoteInterface) => {
     return note.id === props.id;
@@ -69,6 +66,7 @@ const Note = (props: NotePropsInterface) => {
           content={currentContent}
           saveNote={saveNote}
           cancelEdit={cancelEdit}
+          noteId={props.id}
         />
       ) : (
         <PassiveNote
@@ -77,7 +75,6 @@ const Note = (props: NotePropsInterface) => {
           content={substitutedContent}
         />
       )}
-      <button onClick={deleteNote}>Delete</button>
     </div>
   );
 };

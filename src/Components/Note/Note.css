@@ -8,4 +8,21 @@
   border-color: #00000050;
   border-radius: 4px;
   margin: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  white-space: pre-wrap;
+  font-size: 14px;
+}
+
+.NoteArea textarea {
+  width: 98%;
+  min-height: 100px;
+  resize: none;
+  color: white;
+  background-color: #18181b;
+  border-style: solid;
+  border-color: #00000020;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+
 }
