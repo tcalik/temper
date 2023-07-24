@@ -5,6 +5,7 @@
   width: 20%;
   height: 100%;
   text-align: left;
+  min-width: 200px;
 }
 .VariablesBar input {
   color: white;

@@ -1,6 +1,6 @@
 .BackupManagement {
   width: 100%;
-  position: fixed;
+  position: absolute;
   bottom: 10px;
 }
 
@@ -32,9 +32,10 @@
 }
 
 .BackupText {
+  position: relative;
   margin-left: 10px;
   display: block;
-  width: 400px;
+  width: 90%;
   min-height: 100px;
   resize: none;
   color: white;
@@ -52,8 +53,9 @@ p {
 }
 
 .CloseBackupButton {
-  margin-left: 300px;
   color: #a31515;
+  float: right;
+  margin-right: 10%;
 }
 
 .CloseBackupButton:hover {
