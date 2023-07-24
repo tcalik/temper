@@ -5,6 +5,7 @@ import SharedStateInterface from "../../Interfaces/SharedStateInterface";
 import VariablesInterface from "../../Interfaces/VariablesInterface";
 import "./VarsBar.css";
 import { notesActions } from "../../store/notesStore";
+import BackupManagement from "../BackupManagement/BackupManagement";
 
 const VarsBar = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const VarsBar = () => {
           ></VariableMgmt>
         );
       })}
+      <BackupManagement></BackupManagement>
     </div>
   );
 };
