@@ -48,31 +48,36 @@ const BackupManagement = () => {
   };
 
   const validateImport = (importContent: string) => {
+    let res;
     let parsedImport;
     try {
       parsedImport = JSON.parse(importContent);
+
+      parsedImport.forEach((element: NoteInterface) => {
+        if (!element.content) {
+          setImportResult("error");
+          res = false;
+        } else {
+          res = true;
+          setImportResult("success");
+        }
+      });
     } catch (err: any) {
       setImportResult("error");
       console.error(err);
     }
-    parsedImport.forEach((element: NoteInterface) => {
-      if (!element.content) {
-        setImportResult("error");
-      } else {
-        setImportResult("success");
-      }
-    });
+    return res;
   };
 
   const importToApp = () => {
-    validateImport(importContentRef.current?.value!);
-    if (importResult === "success" && importContentRef.current?.value) {
-      console.log("in");
+    const importResult = validateImport(importContentRef.current?.value!);
+    if (importResult && importContentRef.current?.value) {
       const toImport = JSON.parse(importContentRef.current.value);
       toImport.forEach((element: NotesBackupInterface) => {
-        dispatch(notesActions.addNote({ draftContent: element.content }));
+        if (element.content)
+          dispatch(notesActions.addNote({ draftContent: element.content }));
       });
-    } else console.log("out");
+    }
 
     dispatch(notesActions.refreshNotes());
   };
