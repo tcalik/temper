@@ -8,6 +8,16 @@ interface NoteEditorPropsInterface {
 }
 
 const NoteEditor = (props: NoteEditorPropsInterface) => {
+
+
+  const setupTextareaHeight = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    event.target.style.height = "";
+    event.target.style.height = event.target.scrollHeight - 5 + "px";
+    event.target.style.overflow = "hidden";
+  };
+
   const closeEditor = () => {
     props.closeEditor();
   };
@@ -16,6 +26,7 @@ const NoteEditor = (props: NoteEditorPropsInterface) => {
   };
   const changeDraft = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     props.changeDraft(event?.target.value);
+    setupTextareaHeight(event);
   };
   return (
     <div>
@@ -25,6 +36,8 @@ const NoteEditor = (props: NoteEditorPropsInterface) => {
         defaultValue={props.currContent}
         id="draftNote"
         onChange={changeDraft}
+        onFocus={setupTextareaHeight}
+        autoFocus
       ></textarea>
     </div>
   );

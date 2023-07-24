@@ -11,6 +11,8 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   white-space: pre-wrap;
   font-size: 14px;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .NoteArea textarea {
@@ -19,8 +21,9 @@
   resize: none;
   color: white;
   background-color: #18181b;
-  border-style: solid;
-  border-color: #00000020;
+  border-style: none;
+  border-right-style: solid;
+  border-color: #4287f5;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 14px;
   overflow: hidden;

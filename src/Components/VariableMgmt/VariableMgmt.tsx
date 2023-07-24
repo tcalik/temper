@@ -5,6 +5,7 @@ import { notesActions } from "../../store/notesStore";
 interface VariableMgmtInterface {
   varName: string;
   varId: number;
+  currSub: string;
 }
 
 const VariableMgmt = (props: VariableMgmtInterface) => {
@@ -18,11 +19,10 @@ const VariableMgmt = (props: VariableMgmtInterface) => {
       })
     );
   };
-
   return (
     <div className="SingleVar">
       <label>{props.varName}</label>
-      <input onChange={handleSubstitution} type="text" />
+      <input onChange={handleSubstitution} value={props.currSub} type="text" />
     </div>
   );
 };

@@ -61,7 +61,6 @@ const notesInitialState: NotesStateInterface = {
   variablesAvailable: variablesAvail,
 };
 
-
 const notesSlice = createSlice({
   name: "notes",
   initialState: notesInitialState,
@@ -73,7 +72,7 @@ const notesSlice = createSlice({
       ];
       localStorage.setItem("notes", JSON.stringify(state.currentNotes));
 
-      state.variablesAvailable=getAllVars(state.currentNotes);
+      state.variablesAvailable = getAllVars(state.currentNotes);
       state.editedNotes = substitutedNotes(
         state.currentNotes,
         state.variablesAvailable
@@ -90,7 +89,7 @@ const notesSlice = createSlice({
       localStorage.setItem("notes", JSON.stringify(state.currentNotes));
 
       state.currentNotes[editedNoteIndex] = editedNoteObj;
-      state.variablesAvailable=getAllVars(state.currentNotes);
+      state.variablesAvailable = getAllVars(state.currentNotes);
       state.editedNotes = substitutedNotes(
         state.currentNotes,
         state.variablesAvailable
@@ -101,12 +100,21 @@ const notesSlice = createSlice({
         (obj) => obj.id === action.payload.id
       );
       state.currentNotes.splice(editedNoteIndex, 1);
-      state.variablesAvailable=getAllVars(state.currentNotes);
+      state.variablesAvailable = getAllVars(state.currentNotes);
       localStorage.setItem("notes", JSON.stringify(state.currentNotes));
     },
     substituteVariable(state, action) {
       state.variablesAvailable[action.payload.id].substitution =
         action.payload.substituteText;
+      state.editedNotes = substitutedNotes(
+        state.currentNotes,
+        state.variablesAvailable
+      );
+    },
+    clearVariables(state) {
+      state.variablesAvailable.forEach((varAvail) => {
+        varAvail.substitution = "";
+      });
       state.editedNotes = substitutedNotes(
         state.currentNotes,
         state.variablesAvailable

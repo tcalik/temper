@@ -1,4 +1,4 @@
-.VariablesBar{
+.VariablesBar {
   position: fixed;
   right: 0px;
   background-color: #18181b;
@@ -6,25 +6,54 @@
   height: 100%;
   text-align: left;
 }
-.VariablesBar input{
-position: fixed;
-right: 0px;
-  
+.VariablesBar input {
+  color: white;
+  float: right;
+  margin-right: 10px;
+  background-color: #ffffff10;
+  border-style: none;
+  border-bottom-style: solid;
+  border-color: #4287f5;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  width: 50%;
 }
-.VariablesBar>.SingleVar{
-padding: 5px;
+.VariablesBar > .SingleVar {
+  padding: 5px;
 }
 
-.NameHeader{
+.NameHeader {
   padding: 0px;
   text-align: center;
 }
 
-h2{
+h2 {
   margin: 10px;
 }
 
-.VariablesBar label{
-  margin-left: 5px;
+.VariablesBar label {
+  margin-left: 10px;
 }
 
+.ClearVarsButton {
+  background-color: #00000000;
+  color: #a31515;
+  border-style: solid;
+  border-color: #a31515;
+  border-width: 1px;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  float: right;
+  margin-right: 15px;
+}
+.ClearVarsButton:hover {
+  cursor: pointer;
+  background-color: #ffffff10;
+}
+
+.ButtonContainer {
+  width: 100%;
+  height: 25px;
+  margin-bottom: 5px;
+}

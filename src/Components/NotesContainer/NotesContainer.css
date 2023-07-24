@@ -4,7 +4,7 @@
 
 .NoteEditorContainer {
   width: 200px;
-  height: 300px;
+  min-height: 300px;
   background-color: #00000020;
   padding: 12px;
   border-style: solid;
@@ -18,14 +18,16 @@
 }
 .NoteEditorContainer textarea {
   width: 90%;
-  height: 270px;
+  min-height: 260px;
   resize: none;
   color: white;
   background-color: #18181b;
-  border-style: solid;
-  border-color: #00000020;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 14px;
+  border-style: none;
+  border-right-style: solid;
+  border-color: #4287f5;
+  overflow: hidden;
 }
 
 .NewNoteButton {
@@ -41,18 +43,30 @@
 
 .NewNoteButton:hover {
   cursor: pointer;
+  background-color: #ffffff05;
 }
 
 .NoteButton {
   background-color: #00000000;
   color: #4287f5;
-  border-style: none;
   padding: 5px;
   border-radius: 5px;
   font-weight: 500;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-style: solid;
+  border-color: #4287f500;
+  border-width: 1px;
+
 }
 .NoteButton:hover {
   cursor: pointer;
   background-color: #ffffff10;
+  border-style: solid;
+  border-color: #4287f5;
+  border-width: 1px;
+}
+
+.CopyButton:hover{
+  border-color: #00000000;
+  background-color: #00000030 ;
 }

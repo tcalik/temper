@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
+import React, { MouseEventHandler, useState } from "react";
 import { useDispatch } from "react-redux";
 import { notesActions } from "../../store/notesStore";
 import "./ActiveNote.css";
@@ -12,8 +12,6 @@ const ActiveNote = (props: ActiveNotePropsInterface) => {
   const dispatch = useDispatch();
   const [draftNoteContent, setDraftNoteContent] = useState(props.content);
 
-  const inputReference = useRef<HTMLTextAreaElement | null>(null);
-
   const deleteNoteAction = () => {
     dispatch(notesActions.deleteNote({ id: props.noteId }));
   };
@@ -21,12 +19,6 @@ const ActiveNote = (props: ActiveNotePropsInterface) => {
   const deleteNote = () => {
     deleteNoteAction();
   };
-
-  useEffect(() => {
-    if (inputReference != null && inputReference.current != null) {
-      inputReference.current.focus();
-    }
-  }, []);
 
   const setupTextareaHeight = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -61,8 +53,8 @@ const ActiveNote = (props: ActiveNotePropsInterface) => {
       <textarea
         defaultValue={props.content}
         onChange={draftCurrentNote}
-        ref={inputReference}
         onFocus={setupTextareaHeight}
+        autoFocus
       ></textarea>
     </div>
   );
