@@ -1,11 +1,15 @@
 import { useRef, useState } from "react";
 import "./BackupManagement.css";
 import copyToClipboard from "../../utils/copyToClipboard";
+import { useDispatch } from "react-redux";
+import { notesActions } from "../../store/notesStore";
 
 const BackupManagement = () => {
   const [backupAreaVisible, setBackupAreaVisible] = useState(false);
   const [backupMode, setBackupMode] = useState<"save" | "import">("save");
   const importContentRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const dispatch = useDispatch();
 
   const toggleBackupArea = () => {
     setBackupAreaVisible(!backupAreaVisible);
@@ -34,7 +38,9 @@ const BackupManagement = () => {
   const importToApp = () => {
     if (importContentRef.current?.value)
       localStorage.setItem("notes", importContentRef.current?.value);
-      else (console.error("Eerr"))
+    else console.error("Eerr");
+
+    dispatch(notesActions.refreshNotes());
   };
 
   return (

@@ -3,10 +3,13 @@ import VariablesInterface from "../Interfaces/VariablesInterface";
 import NotesStateInterface from "../Interfaces/NotesStateInterface";
 import NoteInterface from "../Interfaces/NoteInterface";
 
-const storedNotes =
-  localStorage.getItem("notes") != null
+const getStoredNotes = () => {
+  return localStorage.getItem("notes") != null
     ? JSON.parse(localStorage.getItem("notes")!)
     : [];
+};
+
+const storedNotes = getStoredNotes();
 
 const getAllVars = (notesArr: Array<NoteInterface>) => {
   let varsToSub: Array<string> = [];
@@ -61,7 +64,7 @@ const notesInitialState: NotesStateInterface = {
   variablesAvailable: variablesAvail,
 };
 
-const genId = (notesCount:number) => {
+const genId = (notesCount: number) => {
   const newId = Date.now().toString() + "/" + notesCount;
   return newId;
 };
@@ -73,7 +76,10 @@ const notesSlice = createSlice({
     addNote(state, action) {
       state.currentNotes = [
         ...state.currentNotes,
-        { id: genId(state.currentNotes.length), content: action.payload.draftContent },
+        {
+          id: genId(state.currentNotes.length),
+          content: action.payload.draftContent,
+        },
       ];
       localStorage.setItem("notes", JSON.stringify(state.currentNotes));
 
@@ -124,6 +130,14 @@ const notesSlice = createSlice({
         state.currentNotes,
         state.variablesAvailable
       );
+    },
+    refreshNotes(state) {
+      state.currentNotes = getStoredNotes();
+      state.editedNotes = substitutedNotes(
+        state.currentNotes,
+        state.variablesAvailable
+      );
+      state.variablesAvailable = getAllVars(state.currentNotes);
     },
   },
 });
