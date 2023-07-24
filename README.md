@@ -12,7 +12,9 @@ Temper is built using React and redux-toolkit. Styling is done only with CSS, wi
 ## Usage
 ### Adding templates
 You can add a template using the + button. Any word surrounded by ${} will appear as an editable variable after saving.
+
 ![](https://github.com/tcalik/temper/blob/main/addnote.gif)
 ### Changing variables
 Changing variables on the side bar will replace the variable with the new string of your choosing. The variable will be replaced in all templates containing that variable.
+
 ![](https://github.com/tcalik/temper/blob/main/editvar.gif)
