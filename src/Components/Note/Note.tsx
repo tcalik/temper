@@ -8,7 +8,7 @@ import NoteInterface from "../../Interfaces/NoteInterface";
 import SharedStateInterface from "../../Interfaces/SharedStateInterface";
 
 interface NotePropsInterface {
-  id: number;
+  id: string;
 }
 
 const Note = (props: NotePropsInterface) => {

@@ -61,6 +61,11 @@ const notesInitialState: NotesStateInterface = {
   variablesAvailable: variablesAvail,
 };
 
+const genId = (notesCount:number) => {
+  const newId = Date.now().toString() + "/" + notesCount;
+  return newId;
+};
+
 const notesSlice = createSlice({
   name: "notes",
   initialState: notesInitialState,
@@ -68,7 +73,7 @@ const notesSlice = createSlice({
     addNote(state, action) {
       state.currentNotes = [
         ...state.currentNotes,
-        { id: action.payload.id, content: action.payload.draftContent },
+        { id: genId(state.currentNotes.length), content: action.payload.draftContent },
       ];
       localStorage.setItem("notes", JSON.stringify(state.currentNotes));
 

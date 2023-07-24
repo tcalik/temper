@@ -6,7 +6,7 @@ interface ActiveNotePropsInterface {
   saveNote: Function;
   cancelEdit: MouseEventHandler;
   content: string;
-  noteId: number;
+  noteId: string;
 }
 const ActiveNote = (props: ActiveNotePropsInterface) => {
   const dispatch = useDispatch();

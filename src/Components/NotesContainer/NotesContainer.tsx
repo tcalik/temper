@@ -7,6 +7,7 @@ import Note from "../Note/Note";
 import SharedStateInterface from "../../Interfaces/SharedStateInterface";
 import "./NotesContainer.css";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import NoteInterface from "../../Interfaces/NoteInterface";
 
 const NotesContainer = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const NotesContainer = () => {
   };
   const addNewNote = () => {
     dispatch(
-      notesActions.addNote({ id: Math.random(), draftContent: draftContent })
+      notesActions.addNote({ draftContent: draftContent })
     );
   };
 
@@ -48,12 +49,7 @@ const NotesContainer = () => {
 
   const draftNewNote = () => {
     toggleEditorHandler();
-  };
-
-  interface noteInterface {
-    id: number;
-    content: string;
-  }
+  };  
 
   return (
     <div className="NotesContainer">
@@ -85,7 +81,7 @@ const NotesContainer = () => {
               ></NoteEditor>
             )}
           </div>
-          {savedNotes.map((value: noteInterface) => {
+          {savedNotes.map((value: NoteInterface) => {
             return <Note key={value.id} id={value.id}></Note>;
           })}
         </Masonry>

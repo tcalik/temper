@@ -1,5 +1,5 @@
 
 export default interface NoteInterface {
-  id: number;
+  id: string;
   content: string;
 }
