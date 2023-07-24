@@ -51,14 +51,12 @@ const BackupManagement = () => {
     let res;
     try {
       if (importContentRef.current?.value) {
-        console.log("1");
         const parsedImport = JSON.parse(importContentRef.current?.value);
         parsedImport.forEach((element: NoteInterface) => {
           if (!element.content) {
             setImportResult("error");
             res = false;
           } else {
-            console.log("2");
             if (element.content)
               dispatch(notesActions.addNote({ draftContent: element.content }));
           }
