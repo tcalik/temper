@@ -81,7 +81,6 @@ const notesSlice = createSlice({
           content: action.payload.draftContent,
         },
       ];
-      console.log(action.payload.draftContent);
       localStorage.setItem("notes", JSON.stringify(state.currentNotes));
 
       state.variablesAvailable = getAllVars(state.currentNotes);

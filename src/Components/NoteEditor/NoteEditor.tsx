@@ -1,4 +1,4 @@
-import './NoteEditor.css'
+import "./NoteEditor.css";
 
 interface NoteEditorPropsInterface {
   changeDraft: Function;
@@ -8,8 +8,6 @@ interface NoteEditorPropsInterface {
 }
 
 const NoteEditor = (props: NoteEditorPropsInterface) => {
-
-
   const setupTextareaHeight = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -30,8 +28,12 @@ const NoteEditor = (props: NoteEditorPropsInterface) => {
   };
   return (
     <div>
-    <button className="SaveButton NoteButton" onClick={saveDraft}>Save</button>
-    <button className="CloseButton NoteButton" onClick={closeEditor}>Cancel</button>
+      <button className="SaveButton NoteButton" onClick={saveDraft}>
+        Save
+      </button>
+      <button className="CloseButton NoteButton" onClick={closeEditor}>
+        Cancel
+      </button>
       <textarea
         defaultValue={props.currContent}
         id="draftNote"

@@ -11,8 +11,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   white-space: pre-wrap;
   font-size: 14px;
-  overflow-wrap: break-word;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .NoteArea textarea {
