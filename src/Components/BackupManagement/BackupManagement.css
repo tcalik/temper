@@ -51,7 +51,7 @@ p {
   font-size: 12px;
 }
 
-.CloseBackupButton{
+.CloseBackupButton {
   margin-left: 300px;
   color: #a31515;
 }
@@ -62,4 +62,12 @@ p {
   border-style: solid;
   border-color: #a31515;
   border-width: 1px;
+}
+
+.ImportErrorMessage {
+  color: #a31515;
+}
+
+.ImportSuccessMessage {
+  color: darkolivegreen;
 }

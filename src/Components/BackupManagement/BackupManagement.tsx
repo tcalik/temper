@@ -47,39 +47,30 @@ const BackupManagement = () => {
     return JSON.stringify(contentArr);
   };
 
-  const validateImport = (importContent: string) => {
+  const importToApp = () => {
     let res;
-    let parsedImport;
     try {
-      parsedImport = JSON.parse(importContent);
-
-      parsedImport.forEach((element: NoteInterface) => {
-        if (!element.content) {
-          setImportResult("error");
-          res = false;
-        } else {
-          res = true;
-          setImportResult("success");
-        }
-      });
+      if (importContentRef.current?.value) {
+        console.log("1");
+        const parsedImport = JSON.parse(importContentRef.current?.value);
+        parsedImport.forEach((element: NoteInterface) => {
+          if (!element.content) {
+            setImportResult("error");
+            res = false;
+          } else {
+            console.log("2");
+            if (element.content)
+              dispatch(notesActions.addNote({ draftContent: element.content }));
+          }
+        });
+        dispatch(notesActions.refreshNotes());
+        setImportResult("success");
+      }
     } catch (err: any) {
       setImportResult("error");
       console.error(err);
     }
     return res;
-  };
-
-  const importToApp = () => {
-    const importResult = validateImport(importContentRef.current?.value!);
-    if (importResult && importContentRef.current?.value) {
-      const toImport = JSON.parse(importContentRef.current.value);
-      toImport.forEach((element: NotesBackupInterface) => {
-        if (element.content)
-          dispatch(notesActions.addNote({ draftContent: element.content }));
-      });
-    }
-
-    dispatch(notesActions.refreshNotes());
   };
 
   return (
@@ -109,13 +100,17 @@ const BackupManagement = () => {
           {importResult === null ? (
             <p>Paste your backup and import</p>
           ) : importResult === "success" ? (
-            <p className="ImportSuccessMessage">Success</p>
+            <p className="ImportSuccessMessage">Backup successfully restored</p>
           ) : importResult === "error" ? (
-            <p className="ImportErrorMessage">Error</p>
+            <p className="ImportErrorMessage">Incorrect backup text</p>
           ) : (
             <></>
           )}
-          <textarea ref={importContentRef} className="BackupText"></textarea>
+          <textarea
+            ref={importContentRef}
+            className="BackupText"
+            spellCheck={false}
+          ></textarea>
           <div className="BackupButtonsZone">
             <button onClick={importToApp} className="BackupButton">
               Import
