@@ -6,6 +6,9 @@
   height: 100%;
   text-align: left;
   min-width: 200px;
+  border-left-style: solid;
+  border-color: #131315;
+
 }
 .VariablesBar input {
   color: white;
